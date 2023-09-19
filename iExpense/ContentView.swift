@@ -13,24 +13,50 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             List{
-                ForEach(expenses.items){item in
-                    HStack{
-                        VStack(alignment: .leading){
-                            Text(item.name)
-                                .font(.title)
-//                                .bold()
-                            Text(item.type)
-                                .bold()
+                Section("Personal"){
+                    ForEach(expenses.items){item in
+                        if item.type == "Personal"{
+                            HStack{
+                                VStack(alignment: .leading){
+                                    Text(item.name)
+                                        .font(.title)
+                                    //                                .bold()
+                                    Text(item.type)
+                                        .bold()
+                                }
+                                Spacer()
+                                
+                                Text(item.amount,format: .currency(code: "USD"))
+                                    .foregroundColor(style(amount: item.amount))
+                                
+                                
+                            }
                         }
-                        Spacer()
-                        
-                        Text(item.amount,format: .currency(code: "USD"))
-                            .foregroundColor(style(amount: item.amount))
-                            
-                        
                     }
+                    .onDelete(perform: removeItems)
                 }
-                .onDelete(perform: removeItems)
+                Section("Business"){
+                    ForEach(expenses.items){item in
+                        if item.type == "Business"{
+                            HStack{
+                                VStack(alignment: .leading){
+                                    Text(item.name)
+                                        .font(.title)
+                                    //                                .bold()
+                                    Text(item.type)
+                                        .bold()
+                                }
+                                Spacer()
+                                
+                                Text(item.amount,format: .currency(code: "USD"))
+                                    .foregroundColor(style(amount: item.amount))
+                                
+                                
+                            }
+                        }
+                    }
+                    .onDelete(perform: removeItems)
+                }
             }
             .navigationTitle("iExpense")
             .toolbar {

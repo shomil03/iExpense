@@ -30,6 +30,9 @@ struct AddExpense: View {
             .navigationTitle("AddExpense")
             .toolbar {
                 Button("Save"){
+                    if name == ""{
+                        name = " "
+                    }
                     let item = ExpenseItem(name: name, type: type, amount: amount)
                     expense.items.append(item)
                     dismiss()
