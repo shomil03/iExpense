@@ -32,9 +32,13 @@ struct ContentView: View {
                     .buttonStyle(BorderedProminentButtonStyle())
                         Menu("Sort" , systemImage: "arrow.up.arrow.down"){
                             Picker("Name"  , selection: $sortBy ){
-                                Text("Name")
+                                Label("Name", systemImage: "arrowshape.up.fill")
+                                    .tag([SortDescriptor(\Expenseitem.name , order: .reverse) ])
+                                Label("Name", systemImage: "arrowshape.down.fill")
                                     .tag([SortDescriptor(\Expenseitem.name)])
-                                Text("Amount")
+                                Label("Amount", systemImage: "arrowshape.up.fill")
+                                    .tag([SortDescriptor(\Expenseitem.amount , order: .reverse)])
+                                Label("Amount", systemImage: "arrowshape.down.fill")
                                     .tag([SortDescriptor(\Expenseitem.amount)])
                             
                         }
@@ -57,7 +61,8 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showing_AddExpense){
-                AddExpense()
+                let newExpense = Expenseitem(name: "", type: "Personal", amount: 0)
+                AddExpense(expense: newExpense)
             }
             .scrollBounceBehavior(.basedOnSize)
         }

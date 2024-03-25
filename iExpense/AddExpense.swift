@@ -11,24 +11,31 @@ import SwiftData
 struct AddExpense: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
-    @State private var name = ""
     @State private var type = "Personal"
     var types = ["Business","Personal"]
     let locale = Locale.current.currencySymbol
-    @State private var amount : String = ""
     @State private var showingalert = false
+    @Bindable var expense : Expenseitem
     
     var body: some View {
-        NavigationView{
+        NavigationStack{
             Form{
-                TextField("Name",text: $name)
-                Picker("Type", selection: $type){
+                TextField("Name",text: $expense.name)
+                Picker("Type", selection: $expense.type){
                     ForEach(types,id: \.self){
                         Text($0)
                     }
                     
                 }
-                TextField("\(Locale.current.currency?.identifier ?? "USD")", text:$amount)
+                TextField("\(Locale.current.currency?.identifier ?? "USD")", text: Binding<String>(
+                    get:{
+                        (expense.amount) == 0 ? "" : String(expense.amount)
+                    },
+                    set: {newValue in
+                    if let value = Double(newValue){
+                        expense.amount = value
+                    }
+                }))
                     .keyboardType(.decimalPad)
                     .onTapGesture {
                         
@@ -42,8 +49,8 @@ struct AddExpense: View {
                         showingalert.toggle()
                     }
                     else{
-                        let newExpense = Expenseitem(name: name, type: type, amount: Double(amount) ?? 0)
-                        modelContext.insert(newExpense)
+                       
+                        modelContext.insert(expense)
                         dismiss()
                     }
                 }
@@ -54,7 +61,7 @@ struct AddExpense: View {
         }
     }
     func valid()->Bool{
-        if(name.isEmpty || amount.isEmpty || !amount.contains(["1","2","3","4","5","6","7","8","9","0"])){
+        if(expense.name.isEmpty || expense.amount == 0){
             return false
         }
         return true
@@ -63,6 +70,6 @@ struct AddExpense: View {
 
 struct AddExpense_Previews: PreviewProvider {
     static var previews: some View {
-        AddExpense()
+        AddExpense( expense: Expenseitem(name: "Test", type: "Personal", amount: 2))
     }
 }

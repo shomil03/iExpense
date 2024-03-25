@@ -11,18 +11,37 @@ import SwiftData
 struct ExpenseView: View {
     @Query var expenses : [Expenseitem]
     @Environment(\.modelContext) var modelContext
+    @State private var showingsheet = false
     var body: some View {
         List{
             ForEach(expenses){expense in
-                VStack{
-                    Text(expense.name)
+                NavigationLink{
+                    AddExpense(expense: expense)
                 }
-                    .foregroundStyle(style(amount: expense.amount))
+                    label: {
+                        HStack{
+                            Text(expense.name)
+                                .font(.title3)
+                            Spacer()
+                            VStack{
+                                
+                                Text(String(format: "%.2f", expense.amount))
+                                    .font(.callout)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+                        .foregroundStyle(style(amount: expense.amount))
+                        
+                    }
+                    
+
+                
             }
             .onDelete(perform: removeExpense)
-        }
+                    }
     }
-    init(type : [String] , sortOrder : [SortDescriptor<Expenseitem>]){
+    init(type : [String] ,
+         sortOrder : [SortDescriptor<Expenseitem>]){
         _expenses = Query(filter: #Predicate<Expenseitem>{expense in
             return type.contains(expense.type)
         } , sort: sortOrder)
