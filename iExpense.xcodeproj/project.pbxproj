@@ -11,6 +11,7 @@
 		4F2749842AB21FAD007FAEB0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F2749832AB21FAD007FAEB0 /* ContentView.swift */; };
 		4F2749862AB21FAE007FAEB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F2749852AB21FAE007FAEB0 /* Assets.xcassets */; };
 		4F2749892AB21FAE007FAEB0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F2749882AB21FAE007FAEB0 /* Preview Assets.xcassets */; };
+		4F7E4F822BB1AA0F0084613B /* ExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E4F812BB1AA0F0084613B /* ExpenseView.swift */; };
 		4FA268C42AB779B0006B188C /* Expenseitem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA268C32AB779B0006B188C /* Expenseitem.swift */; };
 		4FA268C62AB779E2006B188C /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA268C52AB779E2006B188C /* Expenses.swift */; };
 		4FA268C82AB784B5006B188C /* AddExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FA268C72AB784B5006B188C /* AddExpense.swift */; };
@@ -22,6 +23,7 @@
 		4F2749832AB21FAD007FAEB0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4F2749852AB21FAE007FAEB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F2749882AB21FAE007FAEB0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4F7E4F812BB1AA0F0084613B /* ExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseView.swift; sourceTree = "<group>"; };
 		4FA268C32AB779B0006B188C /* Expenseitem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenseitem.swift; sourceTree = "<group>"; };
 		4FA268C52AB779E2006B188C /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		4FA268C72AB784B5006B188C /* AddExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpense.swift; sourceTree = "<group>"; };
@@ -60,6 +62,7 @@
 				4F2749812AB21FAD007FAEB0 /* iExpenseApp.swift */,
 				4F2749832AB21FAD007FAEB0 /* ContentView.swift */,
 				4FA268C72AB784B5006B188C /* AddExpense.swift */,
+				4F7E4F812BB1AA0F0084613B /* ExpenseView.swift */,
 				4FA268C32AB779B0006B188C /* Expenseitem.swift */,
 				4FA268C52AB779E2006B188C /* Expenses.swift */,
 				4F2749852AB21FAE007FAEB0 /* Assets.xcassets */,
@@ -104,7 +107,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					4F27497D2AB21FAD007FAEB0 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -151,6 +154,7 @@
 				4FA268C42AB779B0006B188C /* Expenseitem.swift in Sources */,
 				4F2749842AB21FAD007FAEB0 /* ContentView.swift in Sources */,
 				4F2749822AB21FAD007FAEB0 /* iExpenseApp.swift in Sources */,
+				4F7E4F822BB1AA0F0084613B /* ExpenseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +165,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -193,6 +198,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -207,7 +213,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -221,6 +227,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -253,6 +260,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -261,7 +269,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -287,6 +295,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +325,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

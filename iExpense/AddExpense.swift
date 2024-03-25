@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddExpense: View {
-    @ObservedObject var expense : Expenses
+    @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     @State private var name = ""
     @State private var type = "Personal"
     var types = ["Business","Personal"]
-    @State private var amount = 0.0
+    let locale = Locale.current.currencySymbol
+    @State private var amount : String = ""
+    @State private var showingalert = false
+    
     var body: some View {
         NavigationView{
             Form{
@@ -24,26 +28,41 @@ struct AddExpense: View {
                     }
                     
                 }
-                TextField("Amount", value:$amount,format:.currency(code: "USD"))
+                TextField("\(Locale.current.currency?.identifier ?? "USD")", text:$amount)
                     .keyboardType(.decimalPad)
+                    .onTapGesture {
+                        
+                    }
             }
+            
             .navigationTitle("AddExpense")
             .toolbar {
                 Button("Save"){
-                    if name == ""{
-                        name = " "
+                    if(!valid()){
+                        showingalert.toggle()
                     }
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expense.items.append(item)
-                    dismiss()
+                    else{
+                        let newExpense = Expenseitem(name: name, type: type, amount: Double(amount) ?? 0)
+                        modelContext.insert(newExpense)
+                        dismiss()
+                    }
                 }
             }
+            .alert("Error", isPresented: $showingalert, actions: {}, message: {
+                Text("fill all inputs correctly")
+            })
         }
+    }
+    func valid()->Bool{
+        if(name.isEmpty || amount.isEmpty || !amount.contains(["1","2","3","4","5","6","7","8","9","0"])){
+            return false
+        }
+        return true
     }
 }
 
 struct AddExpense_Previews: PreviewProvider {
     static var previews: some View {
-        AddExpense(expense: Expenses())
+        AddExpense()
     }
 }

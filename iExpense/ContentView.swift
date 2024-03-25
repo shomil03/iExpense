@@ -6,57 +6,47 @@
 //
 
 import SwiftUI
+import SwiftData
 struct ContentView: View {
-    @StateObject var expenses = Expenses()
+    @Query var expenses : [Expenseitem]
+    @Environment(\.modelContext) var modelContext
     @State private var showing_AddExpense = false
+    @State private var showingPersonal = ["Personal"]
+    @State private var sortBy = [SortDescriptor(\Expenseitem.name)]
     
     var body: some View {
-        NavigationView{
-            List{
-                Section("Personal"){
-                    ForEach(expenses.items){item in
-                        if item.type == "Personal"{
-                            HStack{
-                                VStack(alignment: .leading){
-                                    Text(item.name)
-                                        .font(.title)
-                                    //                                .bold()
-                                    Text(item.type)
-                                        .bold()
-                                }
-                                Spacer()
-                                
-                                Text(item.amount,format: .currency(code: "USD"))
-                                    .foregroundColor(style(amount: item.amount))
-                                
-                                
-                            }
+        NavigationStack{
+            VStack{
+                HStack{
+                    Spacer()
+                    Menu("Filter" , systemImage:"arrow.up.arrow.down"){
+                        Picker("Personal" , selection: $showingPersonal){
+                            Text("Personal record")
+                                .tag(["Personal"])
+                            Text("Business record")
+                                .tag(["Business"])
+                            Text("All")
+                                .tag(["Business" , "Personal"])
                         }
                     }
-                    .onDelete(perform: removeItems)
-                }
-                Section("Business"){
-                    ForEach(expenses.items){item in
-                        if item.type == "Business"{
-                            HStack{
-                                VStack(alignment: .leading){
-                                    Text(item.name)
-                                        .font(.title)
-                                    //                                .bold()
-                                    Text(item.type)
-                                        .bold()
-                                }
-                                Spacer()
-                                
-                                Text(item.amount,format: .currency(code: "USD"))
-                                    .foregroundColor(style(amount: item.amount))
-                                
-                                
-                            }
+                    .buttonStyle(BorderedProminentButtonStyle())
+                        Menu("Sort" , systemImage: "arrow.up.arrow.down"){
+                            Picker("Name"  , selection: $sortBy ){
+                                Text("Name")
+                                    .tag([SortDescriptor(\Expenseitem.name)])
+                                Text("Amount")
+                                    .tag([SortDescriptor(\Expenseitem.amount)])
+                            
                         }
+                        
                     }
-                    .onDelete(perform: removeItems)
+                        .buttonStyle(BorderedProminentButtonStyle())
+                        .padding(.horizontal)
                 }
+                ExpenseView(type: showingPersonal, sortOrder: sortBy)
+                    
+                    
+                
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -67,24 +57,15 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showing_AddExpense){
-                AddExpense(expense: expenses)
+                AddExpense()
             }
+            .scrollBounceBehavior(.basedOnSize)
         }
     }
-    func style(amount : Double)->Color{
-        if(amount <= 10 )
-        {
-            return Color.green
-        }
-        else if(amount > 10 && amount < 100)
-        {
-            return Color.orange
-        }
-        return Color.red
-            
-    }
+   
     func removeItems(atoffset : IndexSet){
-        expenses.items.remove(atOffsets: atoffset)
+        //        expenses.items.remove(atOffsets: atoffset)
+        
     }
 }
 //struct SecondView : View{
@@ -134,10 +115,11 @@ struct ContentView: View {
 //}
 //// ObservervableObject is used to tell other views to check on it
 //class Jame: ObservableObject{
-////    @Published is used to publish announcemect when ever its value is changed
+////    @Published is used to publish announcement when ever its value is changed
 //    @Published var first = "Shomil"
 //    @Published var last = "Singh"
 //}
+// when you want to encode and decode instances of a custom struct or class to and from external representations like JSON or property lists, you need to specify that your type conforms to the Codable protocol. The Codable protocol is a typealias that combines two other protocols: Encodable and Decodable
 //struct User : Codable{
 //    let firstname : String
 //    let lastname : String
